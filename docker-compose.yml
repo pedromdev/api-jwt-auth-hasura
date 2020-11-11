@@ -1,0 +1,26 @@
+version: "3"
+
+services:
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile-dev
+    environment:
+      NODE_ENV: development
+      JWT_SECRET: JWT_SECRET
+      PORT: 7000
+      TZ: America/Sao_Paulo
+      DATABASE_URI: mysql://user:password@db/autenticacao
+    volumes:
+      - .:/app
+  db:
+    image: mysql
+    volumes:
+      - database:/var/lib/mysql
+    environment:
+      MYSQL_DATABASE: autenticacao
+      MYSQL_USER: user
+      MYSQL_PASSWORD: password
+      MYSQL_RANDOM_ROOT_PASSWORD: true
+volumes:
+  database:
